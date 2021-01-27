@@ -1,0 +1,99 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type GroupType {
+  group_id: Float!
+  group_name: String
+  members: [UserType!]
+}
+
+type UserType {
+  user_id: Float
+  user_name: String!
+  groups: [GroupType!]
+  friends: [UserType!]
+}
+
+type GroupMType {
+  _id: String!
+  group_name: String!
+  members: [UserMType!]
+}
+
+type UserMType {
+  _id: String!
+  user_name: String!
+  groups: [GroupMType!]
+  friends: [UserMType!]
+}
+
+type Query {
+  getAllUser: [UserType!]!
+  getUser(id: Float!): UserType!
+  getAllGroup: [GroupType!]!
+  getGroup(id: Float!): GroupType!
+  getAllUserM: [UserMType!]!
+  getUserM(id: String!): UserMType!
+  getAllGroupM: [GroupMType!]!
+  getGroupM(id: String!): GroupMType!
+}
+
+type Mutation {
+  createUser(input: UserInput!): UserType!
+  updateUser(id: Float!, input: UpdateUpdateInput!): UserType!
+  removeUser(id: Float!): UserType!
+  createGroup(input: GroupInput!): GroupType!
+  updateGroup(id: Float!, input: GroupUpdateInput!): GroupType!
+  removeGroup(id: Float!): GroupType!
+  createUserM(input: UserMInput!): UserMType!
+  updateUserM(id: String!, input: UserMUpdateInput!): UserMType!
+  removeUserM(id: String!): UserMType!
+  createGroupM(input: GroupMInput!): GroupMType!
+  updateGroupM(id: String!, input: GroupMUpdateInput!): GroupMType!
+  removeGroupM(id: String!): GroupMType!
+}
+
+input UserInput {
+  user_name: String!
+  groups: [Int!]
+  friends: [Int!]
+}
+
+input UpdateUpdateInput {
+  user_name: String
+  groups: [Int!]
+  friends: [Int!]
+}
+
+input GroupInput {
+  group_name: String!
+  members: [Int!]
+}
+
+input GroupUpdateInput {
+  group_name: String
+  members: [Int!]
+}
+
+input UserMInput {
+  user_name: String!
+  groups: [String!]
+  friends: [String!]
+}
+
+input UserMUpdateInput {
+  user_name: String
+  groups: [String!]
+  friends: [String!]
+}
+
+input GroupMInput {
+  group_name: String!
+  members: [String!]
+}
+
+input GroupMUpdateInput {
+  group_name: String
+  members: [String!]
+}
