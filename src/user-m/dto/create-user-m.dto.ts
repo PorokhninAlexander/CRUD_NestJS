@@ -1,16 +1,42 @@
-import { GroupM } from '../../group-m/schemas/group-m.schema';
-import { IsArray, IsOptional, IsString } from 'class-validator';
-import { UserM } from '../schemas/user-m.schema';
+import {
+  IsArray, IsMongoId,
+  IsOptional,
+  IsString,
+  Length,
+  MinLength,
+} from 'class-validator';
 
 export class CreateUserMDto {
   @IsString()
+  @MinLength(3)
   user_name: string;
 
   @IsArray()
+  @IsString({ each: true })
+  @Length(24, 24, { each: true })
   @IsOptional()
-  groups: string[] | GroupM[];
+  groups: string[];
 
   @IsArray()
+  @IsString({ each: true })
+  @Length(24, 24, { each: true })
   @IsOptional()
-  friends: string[] | UserM[];
+  friends: string[];
+}
+
+export class UpdateUserMDto {
+  @IsString()
+  @MinLength(3)
+  @IsOptional()
+  readonly user_name: string;
+
+  @IsArray()
+  @IsMongoId({ each: true })
+  @IsOptional()
+  readonly groups: string[];
+
+  @IsArray()
+  @IsMongoId({ each: true })
+  @IsOptional()
+  readonly friends: string[];
 }

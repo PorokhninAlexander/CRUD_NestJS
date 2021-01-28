@@ -1,11 +1,33 @@
-import { IsArray, IsOptional, IsString } from 'class-validator';
-import { User } from '../../user/entity/user.entity';
+import {
+  IsArray,
+  IsInt,
+  IsOptional,
+  IsString,
+  Min,
+  MinLength,
+} from 'class-validator';
 
 export class CreateGroupDto {
   @IsString()
+  @MinLength(3)
   group_name: string;
 
   @IsArray()
+  @IsInt({ each: true })
+  @Min(1, { each: true })
   @IsOptional()
-  members: number[] | User[];
+  members: number[];
+}
+
+export class UpdateGroupDto {
+  @IsString()
+  @MinLength(3)
+  @IsOptional()
+  group_name: string;
+
+  @IsArray()
+  @IsInt({ each: true })
+  @Min(1, { each: true })
+  @IsOptional()
+  members: number[];
 }

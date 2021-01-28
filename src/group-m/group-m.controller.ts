@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { GroupMService } from './group-m.service';
-import { CreateGroupMDto } from './dto/create-group-m.dto';
+import {CreateGroupMDto, UpdateGroupMDto} from './dto/create-group-m.dto';
 import { IdMongoValidationPipe } from '../shared/id-validation.pipe';
 
 @Controller('group-m')
@@ -33,7 +33,7 @@ export class GroupMController {
   @Put(':id')
   update(
     @Param('id', new IdMongoValidationPipe()) id: string,
-    @Body() updateGroupMDto: Partial<CreateGroupMDto>,
+    @Body() updateGroupMDto: UpdateGroupMDto,
   ) {
     return this.groupMService.update(id, updateGroupMDto);
   }

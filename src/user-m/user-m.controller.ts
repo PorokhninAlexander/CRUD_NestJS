@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { UserMService } from './user-m.service';
-import { CreateUserMDto } from './dto/create-user-m.dto';
+import {CreateUserMDto, UpdateUserMDto} from './dto/create-user-m.dto';
 import { IdMongoValidationPipe } from '../shared/id-validation.pipe';
 
 @Controller('user-m')
@@ -33,7 +33,7 @@ export class UserMController {
   @Put(':id')
   update(
     @Param('id', new IdMongoValidationPipe()) id: string,
-    @Body() updateUserMDto: Partial<CreateUserMDto>,
+    @Body() updateUserMDto: UpdateUserMDto,
   ) {
     return this.userMService.update(id, updateUserMDto);
   }

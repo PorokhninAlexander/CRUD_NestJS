@@ -1,5 +1,12 @@
 import { Field, InputType, Int, PartialType } from '@nestjs/graphql';
-import { IsArray, IsOptional, IsString, MinLength } from 'class-validator';
+import {
+  IsArray,
+  IsInt,
+  IsOptional,
+  IsString,
+  Min,
+  MinLength,
+} from 'class-validator';
 
 @InputType()
 export class GroupInput {
@@ -8,8 +15,10 @@ export class GroupInput {
   @MinLength(3)
   readonly group_name: string;
 
-  @Field(() => [Int], { nullable: true })
+  @Field(() => [Int])
   @IsArray()
+  @IsInt({ each: true })
+  @Min(1, { each: true })
   @IsOptional()
   readonly members: number[];
 }

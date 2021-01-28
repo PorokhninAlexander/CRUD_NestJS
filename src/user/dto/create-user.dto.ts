@@ -1,22 +1,47 @@
-//
-// export class CreateUserDto {
-//   @String()
-//   user_name: string;
-// }
-
-import { IsArray, IsOptional, IsString } from 'class-validator';
-import { User } from '../entity/user.entity';
-import { Group } from '../../group/entities/group.entity';
+import {
+  IsArray,
+  IsInt,
+  IsNumber,
+  IsOptional,
+  IsString,
+  Min,
+  MinLength,
+  Validate,
+} from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
+  @MinLength(3)
   user_name: string;
 
-  @IsOptional()
   @IsArray()
-  groups: number[] | Group[] | null;
+  @IsInt({ each: true })
+  @Min(1, { each: true })
+  @IsOptional()
+  groups: number[];
 
-  @IsOptional()
   @IsArray()
-  friends: number[] | User[] | null;
+  @IsInt({ each: true })
+  @Min(1, { each: true })
+  @IsOptional()
+  friends: number[];
+}
+
+export class UpdateUserDto {
+  @IsString()
+  @MinLength(3)
+  @IsOptional()
+  user_name: string;
+
+  @IsArray()
+  @IsInt({ each: true })
+  @Min(1, { each: true })
+  @IsOptional()
+  groups: number[];
+
+  @IsArray()
+  @IsInt({ each: true })
+  @Min(1, { each: true })
+  @IsOptional()
+  friends: number[];
 }

@@ -1,20 +1,27 @@
 import { Field, InputType, Int, PartialType } from '@nestjs/graphql';
-import { IsArray, IsOptional, IsString, MinLength } from 'class-validator';
+import {
+  IsArray, IsNumber,
+  IsOptional,
+  IsString,
+  MinLength,
+} from 'class-validator';
 
 @InputType()
 export class UserInput {
   @Field(() => String)
   @IsString()
-  @MinLength(2)
+  @MinLength(3)
   readonly user_name: string;
 
-  @Field(() => [Int], { nullable: true })
+  @Field(() => [Int])
   @IsArray()
+  @IsNumber({}, { each: true })
   @IsOptional()
   readonly groups: number[];
 
-  @Field(() => [Int], { nullable: true })
+  @Field(() => [Int])
   @IsArray()
+  @IsNumber({}, { each: true })
   @IsOptional()
   readonly friends: number[];
 }

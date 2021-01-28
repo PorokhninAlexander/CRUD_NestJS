@@ -1,4 +1,5 @@
 import { PipeTransform, Injectable, BadRequestException } from '@nestjs/common';
+import { Types } from 'mongoose';
 
 @Injectable()
 export class IdValidationPipe implements PipeTransform<string, string> {
@@ -13,7 +14,7 @@ export class IdValidationPipe implements PipeTransform<string, string> {
 @Injectable()
 export class IdMongoValidationPipe implements PipeTransform<string, string> {
   transform(value: string): string {
-    if (typeof value !== 'string' || value.length !== 24) {
+    if (!Types.ObjectId.isValid(value)) {
       throw new BadRequestException('Invalid ID');
     }
     return value;

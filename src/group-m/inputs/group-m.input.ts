@@ -1,5 +1,5 @@
 import { Field, InputType, PartialType } from '@nestjs/graphql';
-import { IsOptional, IsString } from 'class-validator';
+import {IsArray, IsMongoId, IsOptional, IsString, Length} from 'class-validator';
 
 @InputType()
 export class GroupMInput {
@@ -7,8 +7,9 @@ export class GroupMInput {
   @IsString()
   readonly group_name: string;
 
-  @Field(() => [String], { nullable: true })
-  @IsString()
+  @Field(() => [String])
+  @IsArray()
+  @IsMongoId({ each: true })
   @IsOptional()
   readonly members: string[];
 }

@@ -1,13 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entity/user.entity';
+import { Group } from '../group/entities/group.entity';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(Group)
+    private readonly groupRepository: Repository<Group>,
   ) {}
 
   findAll(): Promise<User[]> {
@@ -15,13 +23,14 @@ export class UserService {
   }
 
   async findOne(id: number): Promise<User> {
+    await this.checkId(id);
     return await this.userRepository.findOne(id, {
       relations: ['groups', 'friends'],
     });
   }
 
   async create(createUserDto: any): Promise<User> {
-    const newUserDto = this.updateArrForCU(createUserDto);
+    const newUserDto = await this.updateArrForCU(createUserDto);
     const result = await this.userRepository.save(newUserDto);
     return this.userRepository.findOne(result.user_id, {
       relations: ['groups', 'friends'],
@@ -29,7 +38,8 @@ export class UserService {
   }
 
   async update(id: number, updateUserDto: any) {
-    const newUserDto = this.updateArrForCU(updateUserDto);
+    await this.checkId(id);
+    const newUserDto = await this.updateArrForCU(updateUserDto);
     newUserDto.user_id = id;
     await this.userRepository.save(newUserDto);
     return this.userRepository.findOne(id, {
@@ -38,12 +48,14 @@ export class UserService {
   }
 
   async remove(id: number): Promise<any> {
+    await this.checkId(id);
     await this.userRepository.delete(id);
     return { deleted: true };
   }
 
-  //  HELP FUNCTION
-  updateArrForCU(userDto): any {
+  //  HELP FUNCTIONS
+  async updateArrForCU(userDto): Promise<any> {
+    await this.checkIdArrInBase(userDto);
     const groupsIdArr = userDto.groups;
     const friendsIdArr = userDto.friends;
 
@@ -64,5 +76,28 @@ export class UserService {
     }
 
     return userDto;
+  }
+
+  async checkIdArrInBase(userDto): Promise<any> {
+    const groupsIdArr = userDto.groups;
+    const friendsIdArr = userDto.friends;
+    if (friendsIdArr) {
+      const friends = await this.userRepository.findByIds(friendsIdArr);
+      if (friends.length !== friendsIdArr.length) {
+        throw new BadRequestException('One or any friends not found');
+      }
+    }
+
+    if (groupsIdArr) {
+      const groups = await this.groupRepository.findByIds(groupsIdArr);
+      if (groups.length !== groupsIdArr.length) {
+        throw new BadRequestException('One or any groups not found');
+      }
+    }
+  }
+
+  async checkId(id) {
+    const object = await this.userRepository.findOne(id);
+    if (!object) throw new BadRequestException(`User with id ${id} not found`);
   }
 }
