@@ -39,7 +39,7 @@ export class UserService {
 
   async update(id: number, updateUserDto: any) {
     await this.checkId(id);
-    const newUserDto = await this.updateArrForCU(updateUserDto);
+    const newUserDto = await this.updateArrForCU(updateUserDto, id);
     newUserDto.user_id = id;
     await this.userRepository.save(newUserDto);
     return this.userRepository.findOne(id, {
@@ -54,8 +54,8 @@ export class UserService {
   }
 
   //  HELP FUNCTIONS
-  async updateArrForCU(userDto): Promise<any> {
-    await this.checkIdArrInBase(userDto);
+  async updateArrForCU(userDto, id?): Promise<any> {
+    await this.checkIdArrInBase(userDto, id);
     const groupsIdArr = userDto.groups;
     const friendsIdArr = userDto.friends;
 
@@ -78,9 +78,12 @@ export class UserService {
     return userDto;
   }
 
-  async checkIdArrInBase(userDto): Promise<any> {
+  async checkIdArrInBase(userDto, id?): Promise<any> {
     const groupsIdArr = userDto.groups;
     const friendsIdArr = userDto.friends;
+    if (id && friendsIdArr.includes(id)) {
+      throw new BadRequestException(`Friends array can't have id ${id}`);
+    }
     if (friendsIdArr) {
       const friends = await this.userRepository.findByIds(friendsIdArr);
       if (friends.length !== friendsIdArr.length) {

@@ -48,7 +48,7 @@ export class UserMService {
 
   async update(id: string, updateUserMDto: any): Promise<UserM> {
     await this.checkId(id);
-    await this.checkIdArrInBase(updateUserMDto);
+    await this.checkIdArrInBase(updateUserMDto, id);
     const result = await this.userMModel
       .findByIdAndUpdate(id, updateUserMDto, {
         new: true,
@@ -113,9 +113,12 @@ export class UserMService {
 
   //  HELP FUNCTION
 
-  async checkIdArrInBase(user): Promise<any> {
+  async checkIdArrInBase(user, id?): Promise<any> {
     const groupsIdArr = user.groups;
     const friendsIdArr = user.friends;
+    if (id && friendsIdArr.includes(id)) {
+      throw new BadRequestException(`Friends array can't have id ${id}`);
+    }
     if (friendsIdArr) {
       const friends = await this.userMModel.find({
         _id: { $in: friendsIdArr },

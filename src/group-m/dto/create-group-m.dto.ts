@@ -1,8 +1,9 @@
 import {
-  IsArray, IsMongoId,
+  ArrayUnique,
+  IsArray,
+  IsMongoId,
   IsOptional,
   IsString,
-  Length,
   MinLength,
 } from 'class-validator';
 
@@ -12,6 +13,7 @@ export class CreateGroupMDto {
   group_name: string;
 
   @IsArray()
+  @ArrayUnique()
   @IsMongoId({ each: true })
   @IsOptional()
   members: string[];
@@ -24,6 +26,7 @@ export class UpdateGroupMDto {
   group_name: string;
 
   @IsArray()
+  @ArrayUnique()
   @IsMongoId({ each: true })
   @IsOptional()
   members: string[];

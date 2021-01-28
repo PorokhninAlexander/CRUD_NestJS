@@ -1,5 +1,6 @@
 import { Field, InputType, Int, PartialType } from '@nestjs/graphql';
 import {
+  ArrayUnique,
   IsArray,
   IsInt,
   IsOptional,
@@ -17,6 +18,7 @@ export class GroupInput {
 
   @Field(() => [Int])
   @IsArray()
+  @ArrayUnique()
   @IsInt({ each: true })
   @Min(1, { each: true })
   @IsOptional()

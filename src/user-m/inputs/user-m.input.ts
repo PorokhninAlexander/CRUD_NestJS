@@ -1,9 +1,10 @@
 import { Field, InputType, PartialType } from '@nestjs/graphql';
 import {
-  IsArray, IsMongoId,
+  ArrayUnique,
+  IsArray,
+  IsMongoId,
   IsOptional,
   IsString,
-  Length,
   MinLength,
 } from 'class-validator';
 
@@ -16,12 +17,14 @@ export class UserMInput {
 
   @Field(() => [String])
   @IsArray()
+  @ArrayUnique()
   @IsMongoId({ each: true })
   @IsOptional()
   readonly groups: string[];
 
   @Field(() => [String])
   @IsArray()
+  @ArrayUnique()
   @IsMongoId({ each: true })
   @IsOptional()
   readonly friends: string[];

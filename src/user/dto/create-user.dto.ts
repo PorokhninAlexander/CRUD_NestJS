@@ -1,4 +1,5 @@
 import {
+  ArrayUnique,
   IsArray,
   IsInt,
   IsNumber,
@@ -15,12 +16,14 @@ export class CreateUserDto {
   user_name: string;
 
   @IsArray()
+  @ArrayUnique()
   @IsInt({ each: true })
   @Min(1, { each: true })
   @IsOptional()
   groups: number[];
 
   @IsArray()
+  @ArrayUnique()
   @IsInt({ each: true })
   @Min(1, { each: true })
   @IsOptional()
@@ -34,12 +37,14 @@ export class UpdateUserDto {
   user_name: string;
 
   @IsArray()
+  @ArrayUnique()
   @IsInt({ each: true })
   @Min(1, { each: true })
   @IsOptional()
   groups: number[];
 
   @IsArray()
+  @ArrayUnique()
   @IsInt({ each: true })
   @Min(1, { each: true })
   @IsOptional()

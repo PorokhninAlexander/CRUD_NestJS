@@ -1,4 +1,5 @@
 import {
+  ArrayUnique,
   IsArray,
   IsInt,
   IsOptional,
@@ -13,6 +14,7 @@ export class CreateGroupDto {
   group_name: string;
 
   @IsArray()
+  @ArrayUnique()
   @IsInt({ each: true })
   @Min(1, { each: true })
   @IsOptional()
@@ -26,6 +28,7 @@ export class UpdateGroupDto {
   group_name: string;
 
   @IsArray()
+  @ArrayUnique()
   @IsInt({ each: true })
   @Min(1, { each: true })
   @IsOptional()
