@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { GroupMService } from './group-m.service';
-import {CreateGroupMDto, UpdateGroupMDto} from './dto/create-group-m.dto';
+import { CreateGroupMDto, UpdateGroupMDto } from './dto/create-group-m.dto';
 import { IdMongoValidationPipe } from '../shared/id-validation.pipe';
 
 @Controller('group-m')

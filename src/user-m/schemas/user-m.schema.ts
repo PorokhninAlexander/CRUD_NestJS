@@ -15,7 +15,7 @@ export class UserM {
   })
   groups: GroupM[] | Types.ObjectId[] | string[];
 
-  @Prop({ type: [{ type: Types.ObjectId, ref: () => UserM }], required: false })
+  @Prop({ type: [{ type: Types.ObjectId, ref: () => UserM }] })
   friends: UserM[] | Types.ObjectId[] | string[];
 }
 

@@ -16,7 +16,7 @@ export class GroupInput {
   @MinLength(3)
   readonly group_name: string;
 
-  @Field(() => [Int])
+  @Field(() => [Int], { nullable: true })
   @IsArray()
   @ArrayUnique()
   @IsInt({ each: true })

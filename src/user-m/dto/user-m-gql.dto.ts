@@ -12,6 +12,6 @@ export class UserMType {
   @Field(() => [GroupMType], { nullable: true })
   readonly groups: GroupMType[];
 
-  @Field(() => [UserMType], { nullable: true })
+  @Field(() => [UserMType])
   readonly friends: UserMType[];
 }

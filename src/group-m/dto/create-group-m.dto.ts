@@ -10,24 +10,24 @@ import {
 export class CreateGroupMDto {
   @IsString()
   @MinLength(3)
-  group_name: string;
+  readonly group_name: string;
 
   @IsArray()
   @ArrayUnique()
   @IsMongoId({ each: true })
   @IsOptional()
-  members: string[];
+  readonly members: string[];
 }
 
 export class UpdateGroupMDto {
   @IsString()
   @MinLength(3)
   @IsOptional()
-  group_name: string;
+  readonly group_name: string;
 
   @IsArray()
   @ArrayUnique()
   @IsMongoId({ each: true })
   @IsOptional()
-  members: string[];
+  readonly members: string[];
 }

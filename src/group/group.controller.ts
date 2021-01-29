@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { GroupService } from './group.service';
-import {CreateGroupDto, UpdateGroupDto} from './dto/create-group.dto';
+import { CreateGroupDto, UpdateGroupDto } from './dto/create-group.dto';
 import { IdValidationPipe } from '../shared/id-validation.pipe';
 
 @Controller('group')

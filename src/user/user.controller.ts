@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './entity/user.entity';
-import {CreateUserDto, UpdateUserDto} from './dto/create-user.dto';
+import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto';
 import { IdValidationPipe } from '../shared/id-validation.pipe';
 
 @Controller('user')
@@ -31,7 +31,6 @@ export class UserController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    console.log(createUserDto)
     this.logger.log(JSON.stringify(createUserDto));
     return this.userService.create(createUserDto);
   }

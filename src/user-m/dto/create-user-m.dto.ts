@@ -1,5 +1,6 @@
 import {
-  IsArray, IsMongoId,
+  IsArray,
+  IsMongoId,
   IsOptional,
   IsString,
   Length,
@@ -9,19 +10,19 @@ import {
 export class CreateUserMDto {
   @IsString()
   @MinLength(3)
-  user_name: string;
+  readonly user_name: string;
 
   @IsArray()
   @IsString({ each: true })
   @Length(24, 24, { each: true })
   @IsOptional()
-  groups: string[];
+  readonly groups: string[];
 
   @IsArray()
   @IsString({ each: true })
   @Length(24, 24, { each: true })
   @IsOptional()
-  friends: string[];
+  readonly friends: string[];
 }
 
 export class UpdateUserMDto {

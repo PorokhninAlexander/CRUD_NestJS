@@ -2,51 +2,49 @@ import {
   ArrayUnique,
   IsArray,
   IsInt,
-  IsNumber,
   IsOptional,
   IsString,
   Min,
   MinLength,
-  Validate,
 } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()
   @MinLength(3)
-  user_name: string;
+  readonly user_name: string;
 
   @IsArray()
   @ArrayUnique()
   @IsInt({ each: true })
   @Min(1, { each: true })
   @IsOptional()
-  groups: number[];
+  readonly groups: number[];
 
   @IsArray()
   @ArrayUnique()
   @IsInt({ each: true })
   @Min(1, { each: true })
   @IsOptional()
-  friends: number[];
+  readonly friends: number[];
 }
 
 export class UpdateUserDto {
   @IsString()
   @MinLength(3)
   @IsOptional()
-  user_name: string;
+  readonly user_name: string;
 
   @IsArray()
   @ArrayUnique()
   @IsInt({ each: true })
   @Min(1, { each: true })
   @IsOptional()
-  groups: number[];
+  readonly groups: number[];
 
   @IsArray()
   @ArrayUnique()
   @IsInt({ each: true })
   @Min(1, { each: true })
   @IsOptional()
-  friends: number[];
+  readonly friends: number[];
 }

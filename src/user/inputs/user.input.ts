@@ -1,7 +1,8 @@
 import { Field, InputType, Int, PartialType } from '@nestjs/graphql';
 import {
   ArrayUnique,
-  IsArray, IsNumber,
+  IsArray,
+  IsNumber,
   IsOptional,
   IsString,
   MinLength,
@@ -14,14 +15,14 @@ export class UserInput {
   @MinLength(3)
   readonly user_name: string;
 
-  @Field(() => [Int])
+  @Field(() => [Int], { nullable: true })
   @IsArray()
   @ArrayUnique()
   @IsNumber({}, { each: true })
   @IsOptional()
   readonly groups: number[];
 
-  @Field(() => [Int])
+  @Field(() => [Int], { nullable: true })
   @IsArray()
   @ArrayUnique()
   @IsNumber({}, { each: true })

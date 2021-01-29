@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { UserMService } from './user-m.service';
-import {CreateUserMDto, UpdateUserMDto} from './dto/create-user-m.dto';
+import { CreateUserMDto, UpdateUserMDto } from './dto/create-user-m.dto';
 import { IdMongoValidationPipe } from '../shared/id-validation.pipe';
 
 @Controller('user-m')

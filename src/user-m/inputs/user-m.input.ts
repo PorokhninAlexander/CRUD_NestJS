@@ -15,18 +15,18 @@ export class UserMInput {
   @MinLength(3)
   readonly user_name: string;
 
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   @IsArray()
   @ArrayUnique()
   @IsMongoId({ each: true })
   @IsOptional()
   readonly groups: string[];
 
-  @Field(() => [String])
+  @IsOptional()
   @IsArray()
   @ArrayUnique()
   @IsMongoId({ each: true })
-  @IsOptional()
+  @Field(() => [String], { nullable: true })
   readonly friends: string[];
 }
 

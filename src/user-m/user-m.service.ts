@@ -1,10 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateUserMDto, UpdateUserMDto } from './dto/create-user-m.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { UserMDocument, UserM } from './schemas/user-m.schema';
 import { GroupM, GroupMDocument } from '../group-m/schemas/group-m.schema';
-import { UpdateUserDto } from '../user/dto/create-user.dto';
 
 @Injectable()
 export class UserMService {

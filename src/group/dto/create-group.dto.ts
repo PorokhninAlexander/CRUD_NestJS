@@ -11,26 +11,26 @@ import {
 export class CreateGroupDto {
   @IsString()
   @MinLength(3)
-  group_name: string;
+  readonly group_name: string;
 
   @IsArray()
   @ArrayUnique()
   @IsInt({ each: true })
   @Min(1, { each: true })
   @IsOptional()
-  members: number[];
+  readonly members: number[];
 }
 
 export class UpdateGroupDto {
   @IsString()
   @MinLength(3)
   @IsOptional()
-  group_name: string;
+  readonly group_name: string;
 
   @IsArray()
   @ArrayUnique()
   @IsInt({ each: true })
   @Min(1, { each: true })
   @IsOptional()
-  members: number[];
+  readonly members: number[];
 }

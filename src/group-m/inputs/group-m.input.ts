@@ -13,7 +13,7 @@ export class GroupMInput {
   @IsString()
   readonly group_name: string;
 
-  @Field(() => [String])
+  @Field(() => [String], { nullable: true })
   @IsArray()
   @ArrayUnique()
   @IsMongoId({ each: true })
